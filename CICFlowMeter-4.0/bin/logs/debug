@@ -1,0 +1,12 @@
+2020-06-16 11:42:49 INFO  cic.cs.unb.ca.ifm.Cmd    You select: ../../temp/temp.pcap
+2020-06-16 11:42:49 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../temp/
+2020-06-16 11:42:50 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2020-06-16 11:42:50 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    null
+********************************************************************************
+0000:*01 80 c2 00* 00 00 be 62  c9 0b 2a ce  00 26 42 42    .......b..*..&BB
+0010: 03 00 00 00  00 00 80 00  be 62 c9 0b  2a ce 00 00    .........b..*...
+0020: 00 00 80 00  be 62 c9 0b  2a ce 80 01  00 00 14 00    .....b..*.......
+0030: 02 00 02 00  00 00 00 00  00 00 00 00*                ............    
+
+
+2020-06-16 11:42:50 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on ../../temp/temp.pcap
