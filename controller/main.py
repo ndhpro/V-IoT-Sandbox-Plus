@@ -9,6 +9,7 @@ import shutil
 import queue
 import json
 import pickle
+import warnings
 
 import paramiko
 
@@ -20,6 +21,7 @@ from scapy.all import *
 import pandas as pd
 import numpy as np
 from gensim.models.doc2vec import Doc2Vec
+from graph2vec import graph2vec
 
 
 vm_ip_dict = {
@@ -180,6 +182,7 @@ def extract_net(final_report_dir):
         'cd CICFlowMeter-4.0/bin/ && ./cfm ../../temp/temp.pcap ../../temp/ > /dev/null', shell=True)
     os.remove('temp/temp.pcap')
 
+    attributes = ['Sum ', 'Max ']
     features = ['Flow Duration', 'Tot Fwd Pkts', 'Tot Bwd Pkts',
                 'TotLen Fwd Pkts', 'TotLen Bwd Pkts', 'Fwd IAT Tot', 'Bwd IAT Tot',
                 'Fwd PSH Flags', 'Bwd PSH Flags', 'Fwd URG Flags', 'Bwd URG Flags',
@@ -188,6 +191,8 @@ def extract_net(final_report_dir):
                 'ACK Flag Cnt', 'URG Flag Cnt', 'CWE Flag Count', 'ECE Flag Cnt',
                 'Init Fwd Win Byts', 'Init Bwd Win Byts',
                 'Fwd Act Data Pkts']
+    headers = [att + ft for ft in features for att in attributes]
+    headers.insert(0, 'Num of flow')
 
     data = dict()
     data['Num of flow'] = list()
@@ -210,7 +215,7 @@ def extract_net(final_report_dir):
             data['Sum ' + feature].append(0)
             data['Max ' + feature].append(0)
     os.remove(flow_path)
-    return pd.DataFrame(data).values
+    return pd.DataFrame(data)[headers].values
 
 
 def extract_per(final_report_dir):
@@ -248,42 +253,48 @@ def extract_per(final_report_dir):
 
 
 def extract_syscall(final_report_dir):
-    strace_list = list()
-    report_path = 'final_report/' + final_report_dir + '/'
-    for _, _, files in os.walk(report_path):
-        G = dict()
-        G['edges'] = list()
-        node = set()
-        files.sort()
-        for file_name in files:
-            if file_name.startswith('strace'):
-                with open(report_path + file_name, 'r') as f:
-                    data = json.load(f)
-                for syscall in data:
-                    node.add(syscall['name'])
-                if len(node) == 300:
-                    break
-        node = list(node)
-        for file_name in files:
-            if file_name.startswith('strace'):
-                with open(report_path + file_name, 'r') as f:
-                    data = json.load(f)
-                u = -1
-                for syscall in data:
-                    v = node.index(syscall['name'])
-                    if u >= 0:
-                        G['edges'].append([u, v])
-                    u = v
-        graph = 'temp/' + final_report_dir[:final_report_dir.find('_')] + '.json'
-        with open(graph, 'w') as f:
-            json.dump(G, f)
+    warnings.filterwarnings("ignore")
+    model = Doc2Vec.load('model/doc2vec')
+    i = final_report_dir[:final_report_dir.find('_')]
+    try:
+        data = model.docvecs['g_' + i].reshape(1, -1)
+    except Exception as e:
+        print(e)
+        strace_list = list()
+        report_path = 'final_report/' + final_report_dir + '/'
+        for _, _, files in os.walk(report_path):
+            G = dict()
+            G['edges'] = list()
+            node = set()
+            files.sort()
+            for file_name in files:
+                if file_name.startswith('strace'):
+                    with open(report_path + file_name, 'r') as f:
+                        data = json.load(f)
+                    for syscall in data:
+                        node.add(syscall['name'])
+            node = list(node)
+            c = 0
+            for file_name in files:
+                if file_name.startswith('strace'):
+                    with open(report_path + file_name, 'r') as f:
+                        data = json.load(f)
+                    u = -1
+                    for syscall in data:
+                        v = node.index(syscall['name'])
+                        if u >= 0:
+                            if c > 300:
+                                break
+                            G['edges'].append([u, v])
+                            c += 1
+                        u = v
+            graph = 'temp/graph.json'
+            with open(graph, 'w') as f:
+                json.dump(G, f)
+        data = graph2vec()
+        os.remove(graph)
+    return data
 
-    subprocess.call(
-        'python3 graph2vec/src/graph2vec.py --input-path temp/ --output-path temp/syscall.csv --epochs 100 > /dev/null', shell=True)
-    data = pd.read_csv('temp/syscall.csv')
-    os.remove(graph)
-    os.remove('temp/syscall.csv')
-    return data.values
 
 if __name__ == "__main__":
     print('V-IoT-Sandbox Plus')
@@ -298,10 +309,10 @@ if __name__ == "__main__":
     print('Stage 2: Analyzing with C&C Server')
     final_report_dir = analyze_ccserver(elf, arch, lib, report_dir)
 
+    # final_report_dir = '0a982a3fb71dd70c248c107fcf33574f_1592299647'
+
     print('-' * 80)
     print('Stage 3: Detection result')
-    # net = extract_net(
-    #     '2f383391ae5531f0560ce1e8284f2392779e3f60309d581b5dd7704d798e2125_1592270309')
     net = extract_net(final_report_dir)
     fs = pickle.load(open('model/net_fs.sav', 'rb'))
     norm = pickle.load(open('model/net_norm.sav', 'rb'))
@@ -315,8 +326,6 @@ if __name__ == "__main__":
     else:
         print('\033[92mBENIGN\033[00m (Probability: %.4f)' % (res))
 
-    # per = extract_per(
-        # '2f383391ae5531f0560ce1e8284f2392779e3f60309d581b5dd7704d798e2125_1592270309')
     per = extract_per(final_report_dir)
     fs = pickle.load(open('model/per_fs.sav', 'rb'))
     norm = pickle.load(open('model/per_norm.sav', 'rb'))
@@ -330,8 +339,6 @@ if __name__ == "__main__":
     else:
         print('\033[92mBENIGN\033[00m (Probability: %.4f)' % (res1))
 
-    # syscall = extract_syscall(
-        # '2f383391ae5531f0560ce1e8284f2392779e3f60309d581b5dd7704d798e2125_1592270309')
     syscall = extract_syscall(final_report_dir)
     fs = pickle.load(open('model/syscall_fs.sav', 'rb'))
     norm = pickle.load(open('model/syscall_norm.sav', 'rb'))
@@ -346,6 +353,7 @@ if __name__ == "__main__":
         print('\033[92mBENIGN\033[00m (Probability: %.4f)' % (res2))
 
     res = (res + res1 + res2) / 3
+    print('-' * 80)
     print('Final Decision:\t\t    ', end='')
     if res >= 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res))

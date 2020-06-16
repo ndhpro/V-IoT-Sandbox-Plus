@@ -1,4 +1,4 @@
-# V-IoT Sandbox
+# V-IoT Sandbox Plus
 ## Requirements
 python 3
 ## Setup environment

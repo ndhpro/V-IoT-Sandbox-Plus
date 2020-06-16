@@ -13,26 +13,11 @@ def proc_file(path):
 def proc_folder(path):
     for _, _, files in os.walk(path):
         for file in files:
-            print(file)
-            # Check analysis status
-            continue_fl = False
-            for _, dirs, _ in os.walk('final_report'):
-                for dir in dirs:
-                    if str(file) in dir:
-                        print('Already analyzed')
-                        continue_fl = True
-            for _, dirs, _ in os.walk('report'):
-                for dir in dirs:
-                    if str(file) in dir:
-                        print('Already analyzed')
-                        continue_fl = True
-
-            if not continue_fl:
-                if path.endswith('/'):
-                    file_path = sys.argv[1] + file
-                else:
-                    file_path = sys.argv[1] + '/' + file
-                proc_file(file_path)
+            if path.endswith('/'):
+                file_path = sys.argv[1] + file
+            else:
+                file_path = sys.argv[1] + '/' + file
+            proc_file(file_path)
             k = subprocess.Popen('sudo pkill qemu-system-', shell=True)
             k.wait()
     return 0

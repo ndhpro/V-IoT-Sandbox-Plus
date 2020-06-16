@@ -7,15 +7,16 @@ import pandas as pd
 import networkx as nx
 from tqdm import tqdm
 from joblib import Parallel, delayed
-from param_parser import parameter_parser
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import warnings
 warnings.filterwarnings("ignore")
+
 
 class WeisfeilerLehmanMachine:
     """
     Weisfeiler Lehman feature extractor class.
     """
+
     def __init__(self, graph, features, iterations):
         """
         Initialization method which also executes feature extraction.
@@ -39,12 +40,14 @@ class WeisfeilerLehmanMachine:
         for node in self.nodes:
             nebs = self.graph.neighbors(node)
             degs = [self.features[neb] for neb in nebs]
-            features = [str(self.features[node])]+sorted([str(deg) for deg in degs])
+            features = [str(self.features[node])] + \
+                sorted([str(deg) for deg in degs])
             features = "_".join(features)
             hash_object = hashlib.md5(features.encode())
             hashing = hash_object.hexdigest()
             new_features[node] = hashing
-        self.extracted_features = self.extracted_features + list(new_features.values())
+        self.extracted_features = self.extracted_features + \
+            list(new_features.values())
         return new_features
 
     def do_recursions(self):
@@ -53,6 +56,7 @@ class WeisfeilerLehmanMachine:
         """
         for _ in range(self.iterations):
             self.features = self.do_a_recursion()
+
 
 def dataset_reader(path):
     """
@@ -74,6 +78,7 @@ def dataset_reader(path):
     features = {int(k): v for k, v in features.items()}
     return graph, features, name
 
+
 def feature_extractor(path, rounds):
     """
     Function to extract WL features from a graph.
@@ -86,34 +91,16 @@ def feature_extractor(path, rounds):
     doc = TaggedDocument(words=machine.extracted_features, tags=["g_" + name])
     return doc
 
-def save_embedding(output_path, model, files, dimensions):
-    """
-    Function to save the embedding.
-    :param output_path: Path to the embedding csv.
-    :param model: The embedding model object.
-    :param files: The list of files.
-    :param dimensions: The embedding dimension parameter.
-    """
-    out = []
-    for f in files:
-        identifier = f.strip(".json").split("/")[-1]
-        out.append(list(model.docvecs["g_"+identifier]))
-    column_names = ["#"+str(dim) for dim in range(dimensions)]
-    out = pd.DataFrame(out, columns=column_names)
-    out.to_csv(output_path, index=None)
 
-def main(args):
+def graph2vec():
     """
     Main function to read the graph list, extract features.
     Learn the embedding and save it.
-    :param args: Object with the arguments.
     """
-    graphs = glob.glob(args.input_path + "*.json")
+    graphs = glob.glob("temp/graph.json")
 
+    document_collections = Parallel(n_jobs=4)(
+        delayed(feature_extractor)(g, 2) for g in graphs)
     model = Doc2Vec.load('model/doc2vec')
-
-    save_embedding(args.output_path, model, graphs, args.dimensions)
-
-if __name__ == "__main__":
-    args = parameter_parser()
-    main(args)
+    data = model.infer_vector(document_collections[0].words)
+    return data.reshape(1, -1)
