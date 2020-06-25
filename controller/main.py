@@ -309,7 +309,7 @@ if __name__ == "__main__":
     print('Stage 2: Analyzing with C&C Server')
     final_report_dir = analyze_ccserver(elf, arch, lib, report_dir)
 
-    # final_report_dir = '0a982a3fb71dd70c248c107fcf33574f_1592299647'
+    # final_report_dir = 'cf04a95a254a9aada0440281f82d6e9c_1593062314'
 
     print('-' * 80)
     print('Stage 3: Detection result')
@@ -319,7 +319,7 @@ if __name__ == "__main__":
     clf_net = pickle.load(open('model/net_DecisionTree.sav', 'rb'))
     net = fs.transform(net)
     net = norm.transform(net)
-    res = clf_net.predict_proba(net)[0].item(0)
+    res = clf_net.predict_proba(net)[0].item(1)
     print('Network-based Decision:     ', end='')
     if res > 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res))
@@ -329,10 +329,10 @@ if __name__ == "__main__":
     per = extract_per(final_report_dir)
     fs = pickle.load(open('model/per_fs.sav', 'rb'))
     norm = pickle.load(open('model/per_norm.sav', 'rb'))
-    clf_per = pickle.load(open('model/per_k-NN.sav', 'rb'))
+    clf_per = pickle.load(open('model/per_RandomForest.sav', 'rb'))
     per = fs.transform(per)
     per = norm.transform(per)
-    res1 = clf_per.predict_proba(per)[0].item(0)
+    res1 = clf_per.predict_proba(per)[0].item(1)
     print('Performance-based Decision: ', end='')
     if res1 > 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res1))
@@ -342,10 +342,10 @@ if __name__ == "__main__":
     syscall = extract_syscall(final_report_dir)
     fs = pickle.load(open('model/syscall_fs.sav', 'rb'))
     norm = pickle.load(open('model/syscall_norm.sav', 'rb'))
-    clf_sys = pickle.load(open('model/syscall_k-NN.sav', 'rb'))
+    clf_sys = pickle.load(open('model/syscall_SVM.sav', 'rb'))
     syscall = fs.transform(syscall)
     syscall = norm.transform(syscall)
-    res2 = clf_sys.predict_proba(syscall)[0].item(0)
+    res2 = clf_sys.predict_proba(syscall)[0].item(1)
     print('System Call-based Decision: ', end='')
     if res2 > 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res2))

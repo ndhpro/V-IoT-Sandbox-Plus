@@ -1,0 +1,452 @@
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/0a982a3fb71dd70c248c107fcf33574f
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... PowerPC
+Starting VM...
+[sudo] password for ais: 
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.104:54238
+recv:  b'\x1b[32mDEVICEz CONNECTED \x1b[31m-> \x1b[37m192.168.122.104 | \x1b[32mTYPE \x1b[31m-> \x1b[37mSERVER\n'
+send:  b'!* PING\n'
+recv:  b'PONG!\n'
+send:  b'!* GETLOCALIP\n'
+recv:  b'My IP: 192.168.122.104\n'
+send:  b'!* SCANNER ON\n'
+send:  b'!* HOLD 192.168.0.1 80 3\n'
+send:  b'!* JUNK 192.168.0.1 80 3\n'
+Exception: [Errno 32] Broken pipe
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: MALWARE (Probability: 0.9780)
+System Call-based Decision: MALWARE (Probability: 0.9802)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9861)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/4a832bd4fbb625cd095e9f56d695b047
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... MIPS (mips)
+Starting VM...
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 800 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.101:44060
+recv:  b'\x00\x00\x00\x01'
+recv:  b'\x00'
+send:  b'\x00\x0e\x00\x00\x00\x03\x00\x01\xc0\xa8\x00\x01 \x00'
+send:  b'\x00\x0e\x00\x00\x00\x03\x01\x01\xc0\xa8\x00\x01 \x00'
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: MALWARE (Probability: 0.9600)
+System Call-based Decision: MALWARE (Probability: 0.9756)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9785)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/8b269f0eab1e09040c62ce78dff05c01
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... MIPS (mips)
+Starting VM...
+Copying ELF to VM... Done
+Checking requested libs... 
+Found missing libs... Moved libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 0 IP(s)
+Finalizing report... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     BENIGN (Probability: 0.2274)
+Performance-based Decision: BENIGN (Probability: 0.0000)
+System Call-based Decision: BENIGN (Probability: 0.0582)
+--------------------------------------------------------------------------------
+Final Decision:		    BENIGN (Probability: 0.0952)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/9505af2cafb5b2bb8d10949543c5c416
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... MIPS (mipsel)
+Starting VM...
+Copying ELF to VM... Done
+Checking requested libs... 
+Found missing libs... Moved libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving libs... Moved libs
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.101:41452
+recv:  b'BUILD GetWrecked\n'
+send:  b'!* PING\n'
+recv:  b'PONG!\n'
+send:  b'!* GETLOCALIP\n'
+recv:  b'My IP: 192.168.122.101\n'
+send:  b'!* SCANNER ON\n'
+send:  b'!* HOLD 192.168.0.1 80 3\n'
+send:  b'!* JUNK 192.168.0.1 80 3\n'
+send:  b'!* UDP 192.168.0.1 80 3 32 1\n'
+send:  b'!* TCP 192.168.0.1 80 3 32 syn\n'
+send:  b'!* HTTP 192.168.0.1 80 3\n'
+send:  b'!* CNC 192.168.0.1 80 3\n'
+send:  b'!* COMBO 192.168.0.1 80 3\n'
+send:  b'!* SCANNER OFF\n'
+send:  b'!* STD 192.168.0.1 80 3\n'
+send:  b'!* SH uname -a\n'
+recv:  b'Linux debian-mipsel 3.2.0-4-5kc-malta #1 Debian 3.2.51-1 mips64 GNU/Linux\n'
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: BENIGN (Probability: 0.3800)
+System Call-based Decision: MALWARE (Probability: 0.9817)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.7872)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/1c7c1763888e0a0b67732db1e8e176ba
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... ARM
+Starting VM...
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.100:58486
+recv:  b'BUILD SAGEv2\n'
+send:  b'!* PING\n'
+recv:  b'PONG!\n'
+send:  b'!* GETLOCALIP\n'
+recv:  b'My IP: 192.168.122.100\n'
+send:  b'!* SCANNER ON\n'
+recv:  b'STARTING TELNET SCANNER\n'
+send:  b'!* HOLD 192.168.0.1 80 3\n'
+send:  b'!* JUNK 192.168.0.1 80 3\n'
+send:  b'!* UDP 192.168.0.1 80 3 32 1\n'
+send:  b'!* TCP 192.168.0.1 80 3 32 syn\n'
+send:  b'!* HTTP 192.168.0.1 80 3\n'
+send:  b'!* CNC 192.168.0.1 80 3\n'
+send:  b'!* COMBO 192.168.0.1 80 3\n'
+send:  b'!* SCANNER OFF\n'
+send:  b'!* STD 192.168.0.1 80 3\n'
+send:  b'!* SH uname -a\n'
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: MALWARE (Probability: 0.9950)
+System Call-based Decision: MALWARE (Probability: 1.0000)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9983)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/7e0902d7e636b048c170bc446c6ef6631dd02767f45ce681676d3f6b61796557
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... ARM
+Starting VM...
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.100:35978
+recv:  b'BUILD DARKAI\n'
+send:  b'!* PING\n'
+recv:  b'PONG!\n'
+send:  b'!* GETLOCALIP\n'
+recv:  b'My IP: 192.168.122.100\n'
+send:  b'!* SCANNER ON\n'
+send:  b'!* HOLD 192.168.0.1 80 3\n'
+send:  b'!* JUNK 192.168.0.1 80 3\n'
+send:  b'!* UDP 192.168.0.1 80 3 32 1\n'
+send:  b'!* TCP 192.168.0.1 80 3 32 syn\n'
+send:  b'!* HTTP 192.168.0.1 80 3\n'
+send:  b'!* CNC 192.168.0.1 80 3\n'
+send:  b'!* COMBO 192.168.0.1 80 3\n'
+send:  b'!* SCANNER OFF\n'
+send:  b'!* STD 192.168.0.1 80 3\n'
+send:  b'!* SH uname -a\n'
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: MALWARE (Probability: 0.9990)
+System Call-based Decision: MALWARE (Probability: 1.0000)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9997)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/9c0c8e31537c98b322e194afd76a44cbbc20074d3c80bc7a6dd8ccd6e7884e7a
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... Intel 80386
+Starting VM...
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 0 IP(s)
+Finalizing report... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 0.8256)
+Performance-based Decision: MALWARE (Probability: 1.0000)
+System Call-based Decision: MALWARE (Probability: 1.0000)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9419)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/94e893fb07e10664719cff4c849b21b28d5c1f32c5e02f645649b2e0c29e4e13
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... ARM
+Starting VM...
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.100:35947
+recv:  b'NICK ZQVO\nUSER RGLC localhost localhost :OYSXJ\n'
+send:  b'!* PING\n'
+send:  b'!* GETLOCALIP\n'
+send:  b'!* SCANNER ON\n'
+send:  b'!* HOLD 192.168.0.1 80 3\n'
+send:  b'!* JUNK 192.168.0.1 80 3\n'
+send:  b'!* UDP 192.168.0.1 80 3 32 1\n'
+send:  b'!* TCP 192.168.0.1 80 3 32 syn\n'
+send:  b'!* HTTP 192.168.0.1 80 3\n'
+send:  b'!* CNC 192.168.0.1 80 3\n'
+send:  b'!* COMBO 192.168.0.1 80 3\n'
+send:  b'!* SCANNER OFF\n'
+send:  b'!* STD 192.168.0.1 80 3\n'
+send:  b'!* SH uname -a\n'
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: MALWARE (Probability: 0.9400)
+System Call-based Decision: MALWARE (Probability: 0.9948)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9783)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/a7192c394957ba17878e3c1f57aca67b
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... MIPS (mipsel)
+Starting VM...
+Copying ELF to VM... Done
+Checking requested libs... 
+Found missing libs... Moved libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving libs... Moved libs
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.101:57248
+recv:  b'\x00\x00\x00\x01'
+recv:  b'\x00'
+send:  b'\x00\x0e\x00\x00\x00\x03\x00\x01\xc0\xa8\x00\x01 \x00'
+send:  b'\x00\x0e\x00\x00\x00\x03\x01\x01\xc0\xa8\x00\x01 \x00'
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: BENIGN (Probability: 0.3640)
+System Call-based Decision: MALWARE (Probability: 0.8936)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.7525)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/571d93ccba8ee531627311fdb0b54c95
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... ARM
+Starting VM...
+Copying ELF to VM... Done
+Checking requested libs... 
+Found missing libs... Moved libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 0 IP(s)
+Finalizing report... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 0.8256)
+Performance-based Decision: BENIGN (Probability: 0.0010)
+System Call-based Decision: BENIGN (Probability: 0.0076)
+--------------------------------------------------------------------------------
+Final Decision:		    BENIGN (Probability: 0.2781)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/147af70b815093d9247e22f688f25104
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... ARM
+Starting VM...
+Copying ELF to VM... Done
+Checking requested libs... OK
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 0 IP(s)
+Finalizing report... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     BENIGN (Probability: 0.2274)
+Performance-based Decision: BENIGN (Probability: 0.4960)
+System Call-based Decision: BENIGN (Probability: 0.0763)
+--------------------------------------------------------------------------------
+Final Decision:		    BENIGN (Probability: 0.2666)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/0aa2e6f6900a63b438936f26fced5a4b4567756878d8fa20cefd557dc25df0a9
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... x86-64
+Starting VM...
+Copying ELF to VM... Done
+Static, no need to check requested libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 1 IP(s)
+Starting VM...
+Copying ELF to VM... Done
+Moving ip_list... Done
+Redirect... OK
+Server is listening...
+Connected to 192.168.122.103:45496
+recv:  b'\x1b[0;97m[ \x1b[0;91mExecution \x1b[0;97m] [ \x1b[0;91mx86_64\x1b[0;97m ] Connected -> \x1b[0;91m192.168.122.103\x1b[0;97m  | Endian \x1b[0;91mLITTLE_ENDIAN  \x1b[0;97m| Device: \x1b[0;91mPython Device\n'
+send:  b'!* PING\n'
+send:  b'!* GETLOCALIP\n'
+Exception: [Errno 32] Broken pipe
+
+Server closed. Waiting VM...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     MALWARE (Probability: 1.0000)
+Performance-based Decision: MALWARE (Probability: 0.9980)
+System Call-based Decision: MALWARE (Probability: 0.9948)
+--------------------------------------------------------------------------------
+Final Decision:		    MALWARE (Probability: 0.9976)
+V-IoT-Sandbox Plus
+Analyzing /home/ais/Downloads/test_elf/cf04a95a254a9aada0440281f82d6e9c
+--------------------------------------------------------------------------------
+Stage 1: Pre-analyze
+CPU architecture... MIPS (mipsel)
+Starting VM...
+Copying ELF to VM... Done
+Checking requested libs... 
+Found missing libs... Moved libs
+Analyzing...
+Receiving report... Done
+Shutting down VM... Done
+--------------------------------------------------------------------------------
+Stage 2: Analyzing with C&C Server
+C&C Server detected... 0 IP(s)
+Finalizing report... Done
+--------------------------------------------------------------------------------
+Stage 3: Detection result
+Network-based Decision:     BENIGN (Probability: 0.2274)
+Performance-based Decision: BENIGN (Probability: 0.0000)
+System Call-based Decision: BENIGN (Probability: 0.0618)
+--------------------------------------------------------------------------------
+Final Decision:		    BENIGN (Probability: 0.0964)
+
