@@ -321,7 +321,7 @@ if __name__ == "__main__":
     net = norm.transform(net)
     res = clf_net.predict_proba(net)[0].item(0)
     print('Network-based Decision:     ', end='')
-    if res >= 0.5:
+    if res > 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res))
     else:
         print('\033[92mBENIGN\033[00m (Probability: %.4f)' % (res))
@@ -334,7 +334,7 @@ if __name__ == "__main__":
     per = norm.transform(per)
     res1 = clf_per.predict_proba(per)[0].item(0)
     print('Performance-based Decision: ', end='')
-    if res1 >= 0.5:
+    if res1 > 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res1))
     else:
         print('\033[92mBENIGN\033[00m (Probability: %.4f)' % (res1))
@@ -347,7 +347,7 @@ if __name__ == "__main__":
     syscall = norm.transform(syscall)
     res2 = clf_sys.predict_proba(syscall)[0].item(0)
     print('System Call-based Decision: ', end='')
-    if res2 >= 0.5:
+    if res2 > 0.5:
         print('\033[91mMALWARE\033[00m (Probability: %.4f)' % (res2))
     else:
         print('\033[92mBENIGN\033[00m (Probability: %.4f)' % (res2))
