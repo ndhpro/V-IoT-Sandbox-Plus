@@ -1,4 +1,5 @@
-# V-IoT Sandbox Plus
+# V-Sandbox Plus
+V-Sandbox with Machine Learning-based Malware early detection module
 ## Requirements
 python 3
 ## Setup environment
@@ -47,4 +48,4 @@ host 192.168.122.*
 ## Run sandbox
 python3 run.py <file_or_folder>\
 reports are generated in final_report/\
-Detecting results are displayed on screen
+Detection results are displayed on screen
